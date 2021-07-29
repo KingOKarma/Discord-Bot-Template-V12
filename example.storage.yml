@@ -1,0 +1,3 @@
+examples:
+   item1: "I can be changed at runtime"
+   item2: So can I!

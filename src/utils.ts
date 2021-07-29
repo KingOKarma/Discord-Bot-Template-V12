@@ -1,9 +1,11 @@
+import Command from "./interfaces/command";
+
 /**
    * Capitalise the first letter of a string
    * @param {string} s The string to capitalise
    * @returns {string} The capitalised string
    */
- export function capitalize(s) {
+ export function capitalize(s: string): string {
     return s[0].toUpperCase() + s.slice(1);
 }
 
@@ -14,7 +16,6 @@
  * @param {number} pageNumber Which Page number do you wish to be on?
  * @returns {Array} an array
  */
-export function commandPaginate(array, pageSize, pageNumber) {
+export function commandPaginate(array: Command[], pageSize: number, pageNumber: number): Command[] {
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 }
-

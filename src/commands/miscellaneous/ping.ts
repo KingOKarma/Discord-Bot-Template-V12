@@ -1,27 +1,35 @@
-const Discord = require('discord.js');
-const ms = require("ms");
+import { MessageEmbed } from "discord.js";
+import { Command } from "../../interfaces";
+import ms from "ms";
 
-const command = {
-    description: "Get a pong ping",
+export const command: Command = {
+    descirption: "Get a pong ping",
     example: ["!ping"],
     group: "miscellaneous",
     name: "ping",
 
     run: async (client, msg, args) => {
-        var serverIcon = msg.member.guild.iconURL();
+        let serverIcon = "https://logos-world.net/wp-content/uploads/2020/12/Discord-Logo.png";
 
-        const pingEmbed = new Discord.MessageEmbed()
-            .setTitle("Bot Status", serverIcon)
+        if (msg.guild !== null) {
+            const icon = msg.guild.iconURL( { dynamic: true } )
+            if (icon !== null) {
+            serverIcon = icon;
+            }
+        }
+
+        const embed = new MessageEmbed()
+            .setTitle("Bot Status")
+            .setThumbnail(serverIcon)
             .setDescription(
                 `\\> Ping: ${Math.round(client.ws.ping)}ms\n` +
-                `\\> Bot Uptime: **${ms(client.uptime)}**\n` +
+                `\\> Bot Uptime: **${ms(client.uptime ?? 0)}**\n` +
                 `\\> Memory Usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
                 `)
 
-            .setFooter(" ");
+            .setFooter("Brought to you by stinky");
 
-        return msg.channel.send(pingEmbed);
+        return msg.channel.send(embed);
     }
 }
 
-exports.command = command;

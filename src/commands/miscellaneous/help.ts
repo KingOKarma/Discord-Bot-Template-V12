@@ -1,8 +1,12 @@
+import { ColorResolvable, MessageEmbed } from "discord.js";
 import { capitalize, commandPaginate } from "../../utils";
+import { Command } from "../../interfaces";
 
-const command = {
+type HelpType = "page" | "cmd";
+
+export const command: Command = {
     aliases: ["h"],
-    description: "list of commands",
+    descirption: "list of commands",
     example: ["!help <page>", "!help <commandName>"],
     group: "miscellaneous",
     name: "help",
@@ -12,7 +16,7 @@ const command = {
         // eslint-disable-next-line prefer-destructuring
         let page = args[0];
 
-        let pageOrCmd = "page";
+        let pageOrCmd: HelpType = "page";
 
         if (!/^\+?(0|[1-9]\d*)$/.exec(args[0])) pageOrCmd = "cmd";
 
@@ -25,7 +29,7 @@ const command = {
             case "page": {
 
                 const commands = commandPaginate(client.commands.array(), 4, Number(page));
-                const colour = msg.guild?.me?.displayColor;
+                const colour = msg.guild?.me?.displayColor as ColorResolvable;
 
                 let finalPage = 1;
                 let notMax = false;
@@ -39,7 +43,7 @@ const command = {
                 }
                 finalPage -= 1;
 
-                const embed = new Discord.MessageEmbed()
+                const embed = new MessageEmbed()
                     .setTitle(`${client.user?.tag}'s ${client.commands.size} Commands`)
                     .setTimestamp()
                     .setColor(colour)
@@ -68,7 +72,7 @@ const command = {
 
             case "cmd": {
 
-                const colour = msg.guild?.me?.displayColor;
+                const colour = msg.guild?.me?.displayColor as ColorResolvable;
 
 
                 const cmd = client.commands.array().find((c) => {
@@ -86,7 +90,7 @@ const command = {
                 });
 
                 // Const cmd = client.commands.get(args[0]);
-                const embed = new Discord.MessageEmbed();
+                const embed = new MessageEmbed();
 
                 if (cmd === undefined) {
                     embed.setTitle("Command not found");

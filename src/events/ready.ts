@@ -1,15 +1,16 @@
-const event = {
-    name: "ready",
-    run: (client) => {
-        console.log(`Ready to serve!`);
+import { Event } from "../interfaces/event";
+import { STORAGE } from "../globals";
 
-        client.user.setPresence({ activity: { name: 'github.com/VRRemi', type: 'WATCHING' }, status: 'dnd' })
+export const event: Event = {    name: "ready",
+    run: (client) => {
+        console.log(`${client.user?.tag} Ready to serve!`);
+        console.log(STORAGE);
+
+        client.user?.setPresence({ activity: { name: 'github.com/VRRemi', type: 'WATCHING' }, status: 'dnd' })
             .catch(console.error);
     }
 
 }
-
-exports.event = event;
 
 // Type Options: WATCHING, PLAYING, STREAMING
 // Status Options: online, idle, dnd
