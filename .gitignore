@@ -1,2 +1,10 @@
 node_modules
+ormconfig.yml
+settingProvider.ts
+package-lock.json
+config.yml
+build
 .env
+storage.yml
+settings.sqlite3
+textFiles/*

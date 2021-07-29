@@ -1,5 +1,4 @@
-const Discord = require('discord.js');
-const { capitalize, commandPaginate } = require("../../utils");
+import { capitalize, commandPaginate } from "../../utils";
 
 const command = {
     aliases: ["h"],
